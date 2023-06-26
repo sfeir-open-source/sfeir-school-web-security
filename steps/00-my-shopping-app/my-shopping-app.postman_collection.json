@@ -1,0 +1,544 @@
+{
+	"info": {
+		"_postman_id": "26d97e95-f257-407b-be1b-7332a5faa5af",
+		"name": "My Shopping App",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Login/Home",
+			"item": [
+				{
+					"name": "Get login page",
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const value = /name=\"_csrf\" type=\"hidden\" value=\"([a-zA-Z0-9_/-]+)\"/.exec(pm.response.text());\r",
+									"if (value && value.length>1) {\r",
+									"    pm.collectionVariables.set(\"LOGIN_CSRF_VALUE\", value[1]);\r",
+									"}\r",
+									"\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_PATH}}/login",
+							"host": [
+								"{{BASE_PATH}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Do Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.request.headers.clear('X-XSRF-TOKEN')\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "username",
+									"value": "{{USERNAME}}",
+									"type": "default"
+								},
+								{
+									"key": "password",
+									"value": "{{PASSWORD}}",
+									"type": "default"
+								},
+								{
+									"key": "_csrf",
+									"value": "{{LOGIN_CSRF_VALUE}}",
+									"type": "default"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_PATH}}/login",
+							"host": [
+								"{{BASE_PATH}}"
+							],
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Home",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_PATH}}/home",
+							"host": [
+								"{{BASE_PATH}}"
+							],
+							"path": [
+								"home"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "checkCredentialsValidity",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_PATH}}/home/checkAccount?page=/home",
+							"host": [
+								"{{BASE_PATH}}"
+							],
+							"path": [
+								"home",
+								"checkAccount"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "/home"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "My-data",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "default",
+								"disabled": true
+							}
+						],
+						"url": {
+							"raw": "{{BASE_PATH}}/user/my-data",
+							"host": [
+								"{{BASE_PATH}}"
+							],
+							"path": [
+								"user",
+								"my-data"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "ListUsers (Admin-only)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_PATH}}/user",
+							"host": [
+								"{{BASE_PATH}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "CheckMailFormat",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_PATH}}/user/check-email-format",
+							"host": [
+								"{{BASE_PATH}}"
+							],
+							"path": [
+								"user",
+								"check-email-format"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete-account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_PATH}}/user/delete",
+							"host": [
+								"{{BASE_PATH}}"
+							],
+							"path": [
+								"user",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ShoppingList",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"A new list\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_PATH}}/list",
+							"host": [
+								"{{BASE_PATH}}"
+							],
+							"path": [
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetMyLists",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_PATH}}/list",
+							"host": [
+								"{{BASE_PATH}}"
+							],
+							"path": [
+								"list"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Rename",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"The new name\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_PATH}}/list/1",
+							"host": [
+								"{{BASE_PATH}}"
+							],
+							"path": [
+								"list",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_PATH}}/list/delete/1",
+							"host": [
+								"{{BASE_PATH}}"
+							],
+							"path": [
+								"list",
+								"delete",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ShoppingListItem",
+			"item": [
+				{
+					"name": "Create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"listId\": 2,\r\n    \"name\": \"Some item\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_PATH}}/listitem",
+							"host": [
+								"{{BASE_PATH}}"
+							],
+							"path": [
+								"listitem"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllForList",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_PATH}}/listitem/get-by-list/4",
+							"host": [
+								"{{BASE_PATH}}"
+							],
+							"path": [
+								"listitem",
+								"get-by-list",
+								"4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"New item name\",\r\n    \"isChecked\": true\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_PATH}}/listitem/1",
+							"host": [
+								"{{BASE_PATH}}"
+							],
+							"path": [
+								"listitem",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_PATH}}/listitem/1/delete",
+							"host": [
+								"{{BASE_PATH}}"
+							],
+							"path": [
+								"listitem",
+								"1",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get item logo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"console.log(pm.response.text());\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_PATH}}/listitem/logo?itemId=1",
+							"host": [
+								"{{BASE_PATH}}"
+							],
+							"path": [
+								"listitem",
+								"logo"
+							],
+							"query": [
+								{
+									"key": "itemId",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update item logo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"logoImageId\": \"photo2.jpg\",\r\n    \"id\": 1\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_PATH}}/listitem/logo",
+							"host": [
+								"{{BASE_PATH}}"
+							],
+							"path": [
+								"listitem",
+								"logo"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"var csrf = pm.collectionVariables.get(\"CSRF_VALUE\");",
+					"pm.request.headers.add({key: 'X-XSRF-TOKEN', value: csrf })",
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					"var xsrfCookie = postman.getResponseCookie(\"XSRF-TOKEN\");",
+					"if (xsrfCookie) {",
+					"    pm.collectionVariables.set(\"CSRF_VALUE\", xsrfCookie.value);",
+					"}",
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_PATH",
+			"value": "http://localhost:8085",
+			"type": "default"
+		},
+		{
+			"key": "USERNAME",
+			"value": "user@example.com",
+			"type": "default"
+		},
+		{
+			"key": "PASSWORD",
+			"value": "123456",
+			"type": "default"
+		},
+		{
+			"key": "CSRF_VALUE",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "LOGIN_CSRF_VALUE",
+			"value": "",
+			"type": "default"
+		}
+	]
+}

@@ -1,8 +1,9 @@
 {
-  "name": "sfeirschoolxxx",
+  "name": "sfeirschoolwebsecurity",
   "version": "1.0.0",
-  "description": "Sfeir School XXX with revealJS",
+  "description": "Sfeir School Web Security with revealJS",
   "scripts": {
+    "npx": "npx",
     "sass": "sass ./scss/slides.scss:./css/slides.css --source-map --watch",
     "sass-once": "sass ./scss/slides.scss:./css/slides.css --source-map",
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -15,10 +16,12 @@
     "url": "git+https://github.com/sfeir-open-source/sfeir-school-template.git"
   },
   "keywords": [
-    "xxx",
+    "web",
+    "security",
+    "owasp",
     "sfeir"
   ],
-  "author": "jefbinomed",
+  "author": "vandenn3",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/sfeir-open-source/sfeir-school-template/issues"
