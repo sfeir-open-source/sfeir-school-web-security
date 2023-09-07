@@ -1,5 +1,15 @@
 import { SfeirThemeInitializer } from '../web_modules/sfeir-school-theme/sfeir-school-theme.mjs';
 
+/**
+ * If there is not enough time, slides that can be skipped:
+ * - In 102-examples-and-impacts: just talk about libraries examples (skip 102-tools, 102-open-source, 102-data-leaks)
+ * - 301-secure-sdlc-methodo (just give methodologies names and then skip)
+ *
+ * If there is more time:
+ * - Show the section 500-bonus.
+ * - take more time on the exercises: ask them to find vulnerabilities, exploit them, but also fix them.
+ */
+
 function introductionSlides() {
   return [
     '00-Intro.md',
@@ -23,19 +33,12 @@ function webSecOverviewSlides() {
       '102-tools.md',
       '102-data-leaks.md',
       '102-open-source.md',
-      //'102-cloud.md', // skip for timing reasons
       '102-risks-and-impacts.md',
     ].map(relativePath => '100-web-sec-overview/102-examples-and-impacts/' + relativePath);
-  }
-  function howToConvince() {
-    return [
-      '100-web-sec-overview/103-how-to-convince/103-how-to-convince.md'
-    ];
   }
   return [
     ...mainGuidelines(),
     ...examplesAndImpacts(),
-    ...howToConvince(),
   ];
 }
 
@@ -119,28 +122,35 @@ function owaspTop10Slides() {
   }
 
   return [
+    // TODO '200-owasp-top-10/230-pause.md', => when ?
     ...owaspCveOverview(),
     ...owaspTop10Overview(),
     ...owaspTop10_cat01(),
     ...owaspTop10_cat02(),
     ...owaspTop10_cat03(),
-    ...owaspTop10_cat04(),
-    '200-owasp-top-10/230-pause.md',
     '200-owasp-top-10/231-exercise.md',
+    '200-owasp-top-10/231-exercise-cat-1-2-3.md', // Search category 1
+    ...owaspTop10_cat04(),
     ...owaspTop10_cat05(),
+    '200-owasp-top-10/231-exercise.md',
+    '200-owasp-top-10/231-exercise-cat-4-5.md', // Search category 5
     ...owaspTop10_cat06(),
     ...owaspTop10_cat07(),
+    '200-owasp-top-10/231-exercise.md',
+    '200-owasp-top-10/231-exercise-cat-6-7.md', // Search category 6 and 7
     ...owaspTop10_cat08(),
     ...owaspTop10_cat09(),
     ...owaspTop10_cat10(),
+    '200-owasp-top-10/231-exercise.md',
+    '200-owasp-top-10/231-exercise-cat-8-9-10.md', // Search category 8 and 9 (and 1 - path traversal)
     ...owaspTop10_moreResources(),
-    '200-owasp-top-10/231-exercise.md', // continue the previous exercise
   ];
 }
 
 function methodologiesSlides() {
   return [
     '300-methodologies/301-secure-sdlc.md',
+    '300-methodologies/301-secure-sdlc-methodo.md',
     '300-methodologies/302-tools.md',
   ];
 }
@@ -151,6 +161,12 @@ function conclusionSlides() {
   ];
 }
 
+function bonusSlides() {
+  return [
+    '500-bonus/501-how-to-convince.md'
+  ];
+}
+
 function training() {
   return [
     ...introductionSlides(),
@@ -158,6 +174,7 @@ function training() {
     ...owaspTop10Slides(),
     ...methodologiesSlides(),
     ...conclusionSlides(),
+    ...bonusSlides(),
   ].map((path) => ({ path }));
 }
 

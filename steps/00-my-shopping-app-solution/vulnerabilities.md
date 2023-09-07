@@ -55,18 +55,9 @@ With a modern browser, the impact is limited, as session cookies will not be sen
 
 
 
-## A08 - Mass assignment
+## A01 - Path traversal
 
-The endpoint PUT /listitem/{itemId}, to update an item, is vulnerable to mass assignment. From what we can see in the postman collection, this endpoint is used to rename the listitem, and set the check/uncheck status.
-However, it is also possible to use it to set the listId field. Using that endpoint, you can for instance move an item from your list into the list of another user (to make him buy some product...).
-
-See exploits/hacks.postman_collection.json > Mass-assignment.
-
-
-
-## A03 - Path traversal
-
-The /listitem/logo endpoint is vulnerable to path traversal attacks, but only because of the Mass assignment vulnerability (see above).
+The /listitem/logo endpoint is vulnerable to path traversal attacks, but only because of the Mass assignment vulnerability (see below).
 
 When the user defines the item's logo using the /listitem/logo POST endpoint, the received logoId (which is in fact the logo filename) is validated against a whitelist. So these endpoints are not vulnerable as-is (even if it would be even better that the user only send an integer ID, and that the logo filenames are stored in database).
 
@@ -109,6 +100,15 @@ The amount of failed login attempts is not limited for any user. This enables br
 ## A07 - Weaker password algorithm
 
 The strength of the BCryptPasswordEncoder is set to the lowest possible value (in DbInitializer.java), without any known reason.
+
+
+
+## A08 - Mass assignment
+
+The endpoint PUT /listitem/{itemId}, to update an item, is vulnerable to mass assignment. From what we can see in the postman collection, this endpoint is used to rename the listitem, and set the check/uncheck status.
+However, it is also possible to use it to set the listId field. Using that endpoint, you can for instance move an item from your list into the list of another user (to make him buy some product...).
+
+See exploits/hacks.postman_collection.json > Mass-assignment.
 
 
 
